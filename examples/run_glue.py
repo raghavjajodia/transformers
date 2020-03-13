@@ -619,7 +619,8 @@ def main():
 
     args.model_type = args.model_type.lower()
     config_class, model_class, tokenizer_class = MODEL_CLASSES[args.model_type]
-    print("tokenizer class is: ", tokenizer_class)
+    logger.info("tokenizer class is: ", tokenizer_class)
+    logger.info("args tokenizer is: ", args.tokenizer_name)
     config = config_class.from_pretrained(
         args.config_name if args.config_name else args.model_name_or_path,
         num_labels=num_labels,
@@ -631,6 +632,7 @@ def main():
         do_lower_case=args.do_lower_case,
         cache_dir=args.cache_dir if args.cache_dir else None,
     )
+    logger.info("tokenizer is: ", tokenizer)
     model = model_class.from_pretrained(
         args.model_name_or_path,
         from_tf=bool(".ckpt" in args.model_name_or_path),
